@@ -278,23 +278,3 @@ sub Ping{
 		print "Error! Make sure you type a host..."; #Si l'utilisateur n'as rien tapé on lui affiche ce message
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
