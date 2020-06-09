@@ -15,9 +15,12 @@ use Net::Ping;
 use Net::FTP;
 use Socket;
 use Term::ANSIColor;
+use Win32::Console;
 use Win32::Console::ANSI;
 use threads; 
 
+my $CONSOLE=Win32::Console->new;
+$CONSOLE->Title('Deep-Wire - Version 0.2');
 
 #Définition des variables
 #--Variables globales---
@@ -75,6 +78,7 @@ sub Threadsfunction{
 	print("Thread " . $threadrank . " started \n");
 	for (; $port < $port_stop; $port += 1) {
 		Scan();
+		$CONSOLE->Title('Deep-Wire - Scanning port number: ' . $port);
 	}
 	#for (my $i; $i < 10; $i += 1){
 		#print "Iteration number\n";
