@@ -68,9 +68,10 @@ if ($command eq "scan") {
 	Select();
 	print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
 	print "Checking $ip for open ports..\n";
-	$thr1 = threads->new(\&Threadsfunction, 'premier');
-	$thr2 = threads->new(\&Threadsfunction, 'deuxieme');
-	$thr3 = threads->new(\&Threadsfunction, 'troisieme');
+	my $thr1 = threads->new('Threadsfunction', "1");
+	my $thr2 = threads->new('Threadsfunction', "2");
+	$thr1->join();
+	$thr2->join();
 	} 
 
 elsif($command eq "connect"){
@@ -89,9 +90,14 @@ else{exit;}
 #---------------------------------------
 
 sub Threadsfunction{
+	my ($threadrank) = @_;
+	print("Thread " . $threadrank . " started \n");
 	for (; $port < $port_stop; $port += 1) {
 		Scan();
 	}
+	#for (my $i; $i < 10; $i += 1){
+		#print "Iteration number\n";
+	#}
 }
 
 sub Threadstest {
