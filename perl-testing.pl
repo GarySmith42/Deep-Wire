@@ -37,7 +37,7 @@ my ($url, $ftp, $option, $identifiant, $password);
 for(;;){
 	#Appels de fonctions et code global
 	Initialize(); 
-	@commandslist = ("connect", "ping", "exit", "connect");
+	@commandslist = ("connect", "ping", "exit");
 
 	if (exists($commandslist[$command]))
 	{
