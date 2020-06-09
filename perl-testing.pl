@@ -51,7 +51,7 @@ for(;;){
 			$thr2->join();
 		} 
 
-			elsif($command eq "connect"){
+		elsif($command eq "connect"){
 			Bruteforce();
 		}
 
@@ -64,10 +64,6 @@ for(;;){
 			exit;
 		}
 	}
-	#else{
-		#print("Please type a valid command.");
-		#sleep(5);
-	#}
 }
 
 
