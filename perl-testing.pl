@@ -19,33 +19,6 @@ use Win32::Console::ANSI;
 use threads; 
 
 
-
-
-print "\033[2J";    #clear the screen
-print "\033[0;0H"; #jump to 0,0
-
-print color 'red';
-print 
-"
-{_____                                      {__        {__                    
-{__   {__                                   {__        {__ {_                 
-{__    {__   {__       {__    {_ {__        {__   {_   {__   {_ {___   {__    
-{__    {__ {_   {__  {_   {__ {_  {__ {_____{__  {__   {__{__ {__    {_   {__ 
-{__    {__{_____ {__{_____ {__{_   {__      {__ {_ {__ {__{__ {__   {_____ {__
-{__   {__ {_        {_        {__ {__       {_ {_    {____{__ {__   {_        
-{_____      {____     {____   {__           {__        {__{__{___     {____   
-                              {__                                                               	   
-                                                                                                              \n";
-print color 'reset';
-print color 'green';
-print "Autor: ";
-print color 'reset';
-print color 'red';
-print "Gary\n";
-
-
-$| = 1; # so \r works right
-
 #Définition des variables
 #--Variables globales---
 my $command;
@@ -61,29 +34,34 @@ my ($url, $ftp, $option, $identifiant, $password);
 ($ip, $port, $port_stop, $log) = @ARGV;
 #------------------------------------
 
-#Appels de fonctions et code global
-Initialize(); 
+for(;;){
+	#Appels de fonctions et code global
+	Initialize(); 
 
-if ($command eq "scan") {
-	Select();
-	print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
-	print "Checking $ip for open ports..\n";
-	my $thr1 = threads->new('Threadsfunction', "1");
-	my $thr2 = threads->new('Threadsfunction', "2");
-	$thr1->join();
-	$thr2->join();
+	if ($command eq "scan") {
+		Select();
+		print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
+		print "Checking $ip for open ports..\n";
+		my $thr1 = threads->new('Threadsfunction', "1");
+		my $thr2 = threads->new('Threadsfunction', "2");
+		$thr1->join();
+		$thr2->join();
 	} 
 
-elsif($command eq "connect"){
-	Bruteforce();
+	elsif($command eq "connect"){
+		Bruteforce();
+	}
+
+	elsif($command eq "ping"){
+		Ping();
+	}
+
+	elsif($command eq "clear"){
+		print "Exited";
+	}
+
+	else{exit;}
 }
-
-elsif($command eq "ping"){
-	Ping();
-}
-
-else{exit;}
-
 
 
 
@@ -106,6 +84,34 @@ sub Threadstest {
 
 #Déclaration des fonctions
 sub Initialize{
+	print "\033[2J";    #clear the screen
+	print "\033[0;0H"; #jump to 0,0
+
+	print color 'red';
+	print 
+	"
+	{_____                                      {__        {__                    
+	{__   {__                                   {__        {__ {_                 
+	{__    {__   {__       {__    {_ {__        {__   {_   {__   {_ {___   {__    
+	{__    {__ {_   {__  {_   {__ {_  {__ {_____{__  {__   {__{__ {__    {_   {__ 
+	{__    {__{_____ {__{_____ {__{_   {__      {__ {_ {__ {__{__ {__   {_____ {__
+	{__   {__ {_        {_        {__ {__       {_ {_    {____{__ {__   {_        
+	{_____      {____     {____   {__           {__        {__{__{___     {____   
+                              {__                                                               	   
+                                                                                                              \n";
+	print color 'reset';
+    print color 'green';
+	print "Autor: ";
+	print color 'reset';
+	print color 'red';
+	print "Gary\n";
+
+
+	$| = 1; # so \r works right
+
+
+
+
 	print color 'blue';
 	print "Commands list:
 			-'scan' scanne les ports ouverts d'une ip(fonctionnel)
