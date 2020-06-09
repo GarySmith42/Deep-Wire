@@ -1,5 +1,5 @@
 =begin comment
-Copyright © 2020 Gary Smith
+Copyright © 2020 Gary Smith, MIT licence
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -37,30 +37,37 @@ my ($url, $ftp, $option, $identifiant, $password);
 for(;;){
 	#Appels de fonctions et code global
 	Initialize(); 
+	@commandslist = ("connect", "ping", "exit", "connect");
 
-	if ($command eq "scan") {
-		Select();
-		print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
-		print "Checking $ip for open ports..\n";
-		my $thr1 = threads->new('Threadsfunction', "1");
-		my $thr2 = threads->new('Threadsfunction', "2");
-		$thr1->join();
-		$thr2->join();
-	} 
+	if (exists($commandslist[$command]))
+	{
+		if ($command eq "scan") {
+			Select();
+			print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
+			print "Checking $ip for open ports..\n";
+			my $thr1 = threads->new('Threadsfunction', "1");
+			my $thr2 = threads->new('Threadsfunction', "2");
+			$thr1->join();
+			$thr2->join();
+		} 
 
-	elsif($command eq "connect"){
-		Bruteforce();
+			elsif($command eq "connect"){
+			Bruteforce();
+		}
+
+		elsif($command eq "ping"){
+			Ping();
+		}
+
+		elsif($command eq "exit"){
+			print "Exited.";
+			exit;
+		}
 	}
-
-	elsif($command eq "ping"){
-		Ping();
-	}
-
-	elsif($command eq "clear"){
-		print "Exited";
-	}
-
-	else{exit;}
+	#else{
+		#print("Please type a valid command.");
+		#sleep(5);
+	#}
 }
 
 
@@ -116,7 +123,8 @@ sub Initialize{
 	print "Commands list:
 			-'scan' scanne les ports ouverts d'une ip(fonctionnel)
 			-'ping' test le ping d'un serveur (en beta)
-			-'connect' connecte la machine a un serveur ftp (en developpement) \n";
+			-'connect' connecte la machine a un serveur ftp (en developpement)
+			-'exit' Stoppe le programme \n";
 	print color 'reset';
 	print color 'red';
 	print "perl-testing.0.2:";
