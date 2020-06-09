@@ -123,7 +123,7 @@ sub Initialize{
 			-'exit' Stoppe le programme \n";
 	print color 'reset';
 	print color 'red';
-	print "perl-testing.0.2:";
+	print "deep-wire.0.2:";
 	print color 'reset';
 	print color 'white';
 	print "~# ";
