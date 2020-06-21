@@ -10,7 +10,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 =cut
 
 
-
 use Net::Ping;
 use Net::FTP;
 use Socket;
@@ -18,6 +17,13 @@ use Term::ANSIColor;
 use Win32::Console;
 use Win32::Console::ANSI;
 use threads; 
+
+use File::Basename qw(dirname);
+use Cwd qw(abs_path);
+use lib dirname(dirname abs_path $0) . '/lib';
+
+use My::WireNet qw(wirestart contcp);
+
 
 my $CONSOLE=Win32::Console->new;
 $CONSOLE->Title('Deep-Wire - Version 0.2');
@@ -40,11 +46,12 @@ my ($url, $ftp, $option, $identifiant, $password);
 for(;;){
 	#Appels de fonctions et code global
 	Initialize(); 
-	@commandslist = ("connect", "ping", "exit");
+	@commandslist = ("connect", "ping", "exit", "flood");
 
 	if (exists($commandslist[$command]))
 	{
 		if ($command eq "scan") {
+			print(wirestart(19, 23));
 			Select();
 			print LOG_FILE "The following ports are open on $ip between port $port and $port_stop\n\n";
 			print "Checking $ip for open ports..\n";
@@ -65,6 +72,25 @@ for(;;){
 		elsif($command eq "exit"){
 			print "Exited.";
 			exit;
+		}
+
+		elsif($command eq "flood"){
+            #$src_host, $src_port, $dst_host, $dst_port
+			#print(wirestart(18, 29));
+			print("Selectionnez l'ip source de l'attaque:");
+			my $src_host = <>;
+			chomp $src_host;
+			print("Selectionnez le port source de l'attaque:");
+			my $src_port = <>;
+			chomp $src_port;
+			print("Selectionnez l'ip cible de l'attaque:");
+			my $dst_host = <>;
+			chomp $dst_host;
+			print("selectionnez le port cible de l'attaque:");
+			my $dst_port = <>;
+			chomp $dst_port;
+			contcp($src_host, $src_port, $dst_host, $dst_port);
+			sleep(3);
 		}
 	}
 }
