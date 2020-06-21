@@ -150,6 +150,7 @@ sub Initialize{
 			-'scan' scanne les ports ouverts d'une ip(fonctionnel)
 			-'ping' test le ping d'un serveur (en beta)
 			-'connect' connecte la machine a un serveur ftp (en developpement)
+			-'flood' lance une attaque tcp flood sur une cible donnee (fonctionnel)
 			-'exit' Stoppe le programme \n";
 	print color 'reset';
 	print color 'red';
