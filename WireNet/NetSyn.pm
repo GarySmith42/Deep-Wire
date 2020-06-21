@@ -7,16 +7,11 @@ use Win32::Console::ANSI;
 
 use Exporter qw(import);
 
-our @EXPORT_OK = qw(wirestart contcp);
+our @EXPORT_OK = qw(contcp);
 
 my $CONSOLE=Win32::Console->new;
 $CONSOLE->Title('Deep-Wire - Version 0.2');
 
-#Fonctions exportable
-sub wirestart{
-	my ($x, $y) = @_;
-	return $x +$y;
-}
 
 
 sub contcp{
