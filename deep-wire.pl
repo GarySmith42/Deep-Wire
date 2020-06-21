@@ -22,7 +22,7 @@ use File::Basename qw(dirname);
 use Cwd qw(abs_path);
 use lib dirname(dirname abs_path $0) . '/lib';
 
-use My::WireNet qw(wirestart contcp);
+use WireNet::NetSyn qw(wirestart contcp);
 
 
 my $CONSOLE=Win32::Console->new;
