@@ -5,3 +5,4 @@ all informations about the update and the news. This tool is entierely open sour
 professional projects. If you have any issues with the execution, check your network settings. For the linux and macos users 
 this version is not compatible due to the libs and the ASCII system, i work on a public lib for linux and macos.
 Good use!
+If you wan't use the framework please copy the .pm file into the lib directory of your perl interpreter.
